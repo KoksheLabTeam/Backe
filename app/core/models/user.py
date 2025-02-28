@@ -16,7 +16,7 @@ class User(Base):
     first_name: Mapped[str]
     last_name: Mapped[str]
 
-    data_of_birth: Mapped[date] = mapped_column(Date)
+    date_of_birth: Mapped[date] = mapped_column(Date)
     height: Mapped[float]
     weight: Mapped[float]
     is_admin: Mapped[bool] = mapped_column(default=False)
