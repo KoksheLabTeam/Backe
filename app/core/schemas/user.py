@@ -1,6 +1,9 @@
 from app.core.schemas.base import BaseSchema
 from typing import Optional
 
+class UserLogin(BaseSchema):
+    username: str
+    password: str
 
 class UserRead(BaseSchema):
     id: int
