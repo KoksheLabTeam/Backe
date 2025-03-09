@@ -1,9 +1,6 @@
 from app.core.schemas.base import BaseSchema
 from typing import Optional
 
-class UserLogin(BaseSchema):
-    username: str
-    password: str
 
 class UserRead(BaseSchema):
     id: int
@@ -19,15 +16,10 @@ class UserRead(BaseSchema):
 
 
 class UserCreate(BaseSchema):
-    telegram_id: str
     first_name: str
     last_name: str
 
-    date_of_birth: date
-    height: float
-    weight: float
-
-    is_admin: Optional[bool] = False
+    model_config = {"str_strip_whitespace": True}
 
 
 class UserUpdate(BaseSchema):
@@ -40,3 +32,5 @@ class UserUpdate(BaseSchema):
     weight: Optional[float] = None
 
     is_admin: Optional[bool] = None
+
+    model_config = {"str_strip_whitespace": True}
