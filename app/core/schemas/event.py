@@ -18,9 +18,13 @@ class UserCreate(BaseSchema):
     location: str
     format: str
 
+    model_config = {"str_strip_whitespace": True}
+
 
 class UserUpdate(BaseSchema):
     creator_id: Optional[int] = None
     date: Optional[datetime] = None
     location: Optional[str] = None
     format: Optional[str] = None
+
+    model_config = {"str_strip_whitespace": True}
