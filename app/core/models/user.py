@@ -1,6 +1,6 @@
 from typing import List, TYPE_CHECKING
 from app.core.models.base import Base
-from app.core.models.event import Event
+from app.core.models.event import Event, user_to_event
 from app.core.models.nutrition_plan import Nutrition
 from app.core.models.participants import Participants
 from app.core.models.training_plan import Training
@@ -21,7 +21,4 @@ class User(Base):
     weight: Mapped[float]
     is_admin: Mapped[bool] = mapped_column(default=False)
 
-    events: Mapped[List["Event"]] = relationship()
-    participants: Mapped[List["Participants"]] = relationship()
-    nutrition: Mapped[List["Nutrition"]] = relationship()
-    training: Mapped[List["Training"]] = relationship()
+    events: Mapped[List["Event"]] = relationship(secondary=user_to_event)

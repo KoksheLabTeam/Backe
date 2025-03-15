@@ -12,7 +12,6 @@ from app.core.schemas.user import (
     UserCreate,
     UserUpdate,
 )
-from app.core.repos.user import UserRepo, UserCreateException, UserNotFoundException
 
 def create_user(session: Session, data: UserCreate, telegram_id: str) -> User:
     """
@@ -101,17 +100,7 @@ def update_user_by_id(
         data: UserUpdate,
         id: str,
 ) -> User:
-    """
-    Обновляет данные пользователя по Telegtam ID.
 
-    Аргументы:
-    - session: сессия базы данных
-    - data: объект UserUpdate с обновленными данными
-    - telegtam_id: идентификатор пользователя в Telegram
-
-    Возвращает:
-    - Обновленный объект пользователя
-    """
     user = get_user_by_id(session, id)
 
     update_data = data.model_dump(exclude_unset=True, exclude_none=True)

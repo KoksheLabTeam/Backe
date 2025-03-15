@@ -4,7 +4,7 @@ from app.core.schemas.base import BaseSchema
 from typing import Optional
 
 
-class UserRead(BaseSchema):
+class EventRead(BaseSchema):
     id: int
     creator_id: int
     date: datetime
@@ -12,8 +12,7 @@ class UserRead(BaseSchema):
     format: str
 
 
-class UserCreate(BaseSchema):
-    creator_id: int
+class EventCreate(BaseSchema):
     date: datetime
     location: str
     format: str
@@ -21,7 +20,7 @@ class UserCreate(BaseSchema):
     model_config = {"str_strip_whitespace": True}
 
 
-class UserUpdate(BaseSchema):
+class EventUpdate(BaseSchema):
     creator_id: Optional[int] = None
     date: Optional[datetime] = None
     location: Optional[str] = None
