@@ -10,7 +10,6 @@ from fastapi import APIRouter
 
 # Импортируем роутер пользователей из модуля user.py, переименовывая его для удобства как user_router
 from .user import router as user_router
-from .todo import router as todo_router
 
 # Создаем главный роутер, который объединит все API-маршруты приложения
 # Добавляем префикс `/api`, чтобы все эндпойнты начинались с `/api`

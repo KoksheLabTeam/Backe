@@ -1,9 +1,6 @@
 from typing import List, TYPE_CHECKING
 from app.core.models.base import Base
 from app.core.models.event import Event, user_to_event
-from app.core.models.nutrition_plan import Nutrition
-from app.core.models.participants import Participants
-from app.core.models.training_plan import Training
 
 from sqlalchemy import Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship

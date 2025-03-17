@@ -74,24 +74,21 @@ def get_user_by_id(session: Session, id: int) -> User | None:
     return user
 
 
-def get_all_user(sesion: Session) -> list[User]:
+def get_all_user(session: Session) -> list[User]:
     """
-    Получает список всез пользователеей,
+        Получает список всез пользователеей,
 
-    Аргументы:
-    - sesion: сессия базы данных
+        Аргументы:
+        - sesion: сессия базы данных
 
-    Возвращает:
-    - Список объектво User
-    """
+        Возвращает:
+        - Список объектво User
+        """
     try:
         query = select(User)
-        users = session.execute(query).scalar().all()
-
+        users = session.execute(query).scalars().all()
     except SQLAlchemyError as e:
-        raise HTTPException(
-            status_code=500, detail=f"Ошибка при получении списка пользователей: {e}"
-        )
+        raise HTTPException(status_code=500, detail=f"Error fetching users: {e}")
     return users
 
 

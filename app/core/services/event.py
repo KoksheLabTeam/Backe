@@ -21,19 +21,12 @@ def create_event(session: Session, data: EventCreate, creator_id: int) -> Event:
     try:
         session.commit()
         session.refresh(event)
-
-    except IntegrityError as e:
+    except IntegrityError:
         session.rollback()
-        raise HTTPException(
-            status_code=400,
-            detail="Забег с такими данными (дата, место и время) уже существует!",
-        )
-
+        raise HTTPException(status_code=400, detail="Event with this data already exists!")
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(
-            status_code=500, detail=f"Не удалось создать забег: {e}"
-        )
+        raise HTTPException(status_code=500, detail=f"Failed to create event: {e}")
     return event
 
 
@@ -105,12 +98,12 @@ def update_event_by_id(
     return event
 
 def delete_event_by_id(session: Session, id: int) -> None:
+    event = get_event_by_id(session, id)
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found.")
     try:
         session.delete(event)
         session.commit()
-
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(
-            status_code=500, detail=f"Не удалось удалить забег: {e}"
-        )
+        raise HTTPException(status_code=500, detail=f"Failed to delete event: {e}")
