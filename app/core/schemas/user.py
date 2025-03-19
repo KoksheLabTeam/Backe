@@ -1,6 +1,6 @@
 from app.core.schemas.base import BaseSchema
 from typing import Optional
-
+from datetime import datetime
 
 class UserRead(BaseSchema):
     id: int
@@ -8,7 +8,7 @@ class UserRead(BaseSchema):
     first_name: str
     last_name: str
 
-    date_of_birth: date
+    date_of_birth: datetime
     height: float
     weight: float
 
@@ -27,7 +27,7 @@ class UserUpdate(BaseSchema):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
 
-    date_of_birth: Optional[date] = None
+    date_of_birth: Optional[datetime] = None
     height: Optional[float] = None
     weight: Optional[float] = None
 

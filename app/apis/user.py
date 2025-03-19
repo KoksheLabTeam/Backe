@@ -18,7 +18,7 @@ from app.core.schemas.user import (
     UserCreate,  # Схема для создания пользователя
     UserUpdate,  # Схема для обновления пользователя
 )
-from app.api.depends.user import (
+from app.apis.depends.user import (
     get_current_user,  # Зависимость для получения текущего пользователя
     get_admin_user,  # Зависимость для проверки роли администратора
 )

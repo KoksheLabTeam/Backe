@@ -88,7 +88,7 @@ def get_all_user(session: Session) -> list[User]:
         query = select(User)
         users = session.execute(query).scalars().all()
     except SQLAlchemyError as e:
-        raise HTTPException(status_code=500, detail=f"Error fetching users: {e}")
+        raise HTTPException(status_code=500, detail=f"Ошибка при получении пользователей: {e}")
     return users
 
 

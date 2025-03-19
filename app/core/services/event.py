@@ -23,10 +23,10 @@ def create_event(session: Session, data: EventCreate, creator_id: int) -> Event:
         session.refresh(event)
     except IntegrityError:
         session.rollback()
-        raise HTTPException(status_code=400, detail="Event with this data already exists!")
+        raise HTTPException(status_code=400, detail="Событие с такими данными уже существует!")
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to create event: {e}")
+        raise HTTPException(status_code=500, detail=f"Не удалось создать событие: {e}")
     return event
 
 
@@ -63,13 +63,12 @@ def get_event_by_id(sesion: Session, id: int) -> Event | None:
 def get_all_event(session: Session) -> list[Event]:
     try:
         query = select(Event)
-        events = session.execute(query).scalar().all()
-
+        events = session.execute(query).scalars().all()
+        return events
     except SQLAlchemyError as e:
         raise HTTPException(
-            status_code=500, detail=f"Ошибка при получении списка забегов: {e}"
+            status_code=500, detail=f"Ошибка при получении списка событий: {e}"
         )
-    return events
 
 
 def update_event_by_id(
@@ -100,10 +99,10 @@ def update_event_by_id(
 def delete_event_by_id(session: Session, id: int) -> None:
     event = get_event_by_id(session, id)
     if not event:
-        raise HTTPException(status_code=404, detail="Event not found.")
+        raise HTTPException(status_code=404, detail="Событие не найдено.")
     try:
         session.delete(event)
         session.commit()
     except SQLAlchemyError as e:
         session.rollback()
-        raise HTTPException(status_code=500, detail=f"Failed to delete event: {e}")
+        raise HTTPException(status_code=500, detail=f"Не удалось удалить событие: {e}")
