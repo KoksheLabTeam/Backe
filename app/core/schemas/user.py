@@ -14,8 +14,6 @@ class UserRead(BaseSchema):
     weight: str
     dob: datetime
 
-    is_admin: bool
-
 
 class UserCreate(BaseSchema):
     first_name: str
@@ -34,7 +32,3 @@ class UserUpdate(BaseSchema):
     dob: Optional[datetime] = None
     height: Optional[str] = None
     weight: Optional[str] = None
-
-    is_admin: Optional[bool] = None
-
-    model_config = {"str_strip_whitespace": True}
