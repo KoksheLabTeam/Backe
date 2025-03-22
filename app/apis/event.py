@@ -23,7 +23,7 @@ def create_new_event(
     user: Annotated[User, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_session)],
 ):
-    return event_service.create_event(session, data, user.id)
+    return event_service.create_event(session, data, user)
 
 
 @router.get("/", response_model=List[EventRead])
@@ -31,7 +31,7 @@ def get_all_events(
     user: Annotated[User, Depends(get_current_user)],
     session: Annotated[Session, Depends(get_session)],
 ):
-    return event_service.get_all_event(session)
+    return event_service.get_all_event(session, user)
 
 
 @router.get("/user", response_model=List[EventRead])

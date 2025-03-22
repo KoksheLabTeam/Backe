@@ -1,8 +1,8 @@
-"""create_users_events
+"""create_users_event
 
-Revision ID: 9d3e3edb6b13
+Revision ID: 442b960a6d5d
 Revises:
-Create Date: 2025-03-22 06:02:54.014011
+Create Date: 2025-03-22 13:34:44.434830
 
 """
 
@@ -11,7 +11,7 @@ from typing import Sequence, Union
 import sqlalchemy as sa
 from alembic import op
 
-revision: str = "9d3e3edb6b13"
+revision: str = "442b960a6d5d"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -34,6 +34,8 @@ def upgrade() -> None:
         "events",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("creator_id", sa.Integer(), nullable=False),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("description", sa.TEXT(), nullable=True),
         sa.Column("date", sa.DateTime(), nullable=False),
         sa.Column("location", sa.String(), nullable=False),
         sa.Column("format", sa.String(), nullable=False),

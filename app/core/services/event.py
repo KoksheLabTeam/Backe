@@ -1,7 +1,7 @@
 from typing import List
 
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import not_, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
@@ -13,15 +13,17 @@ from app.core.schemas.event import EventCreate, EventUpdate
 def create_event(
     session: Session,
     data: EventCreate,
-    creator_id: int,
+    user: User,
 ) -> Event:
     event_data: dict = data.model_dump()
-    event = Event(**event_data, creator_id=creator_id)
+    event = Event(**event_data, creator_id=user.id)
 
     session.add(event)
     try:
         session.commit()
         session.refresh(event)
+        event.participants.append(user)
+        session.commit()
 
     except SQLAlchemyError as e:
         session.rollback()
@@ -58,9 +60,9 @@ def get_event_by_id(session: Session, event_id: int) -> Event | None:
     return event
 
 
-def get_all_event(session: Session) -> list[Event]:
+def get_all_event(session: Session, user: User) -> list[Event]:
     try:
-        query = select(Event)
+        query = select(Event).where(not_(Event.participants.contains(user)))
         events = session.execute(query).scalars().all()
         return events
 
