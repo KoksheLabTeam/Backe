@@ -1,6 +1,8 @@
-from app.core.schemas.base import BaseSchema
-from typing import Optional
 from datetime import datetime
+from typing import Optional
+
+from app.core.schemas.base import BaseSchema
+
 
 class UserRead(BaseSchema):
     id: int
@@ -8,9 +10,9 @@ class UserRead(BaseSchema):
     first_name: str
     last_name: str
 
-    date_of_birth: datetime
-    height: float
-    weight: float
+    height: str
+    weight: str
+    dob: datetime
 
     is_admin: bool
 
@@ -19,7 +21,9 @@ class UserCreate(BaseSchema):
     first_name: str
     last_name: str
 
-    model_config = {"str_strip_whitespace": True}
+    height: str
+    weight: str
+    dob: datetime
 
 
 class UserUpdate(BaseSchema):
@@ -27,9 +31,9 @@ class UserUpdate(BaseSchema):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
 
-    date_of_birth: Optional[datetime] = None
-    height: Optional[float] = None
-    weight: Optional[float] = None
+    dob: Optional[datetime] = None
+    height: Optional[str] = None
+    weight: Optional[str] = None
 
     is_admin: Optional[bool] = None
 

@@ -1,6 +1,6 @@
 services:
   database_pg:
-    container_name: postgres_db
+    container_name: taining_postgres_db
     image: postgres
     environment:
       - POSTGRES_PASSWORD=postgres

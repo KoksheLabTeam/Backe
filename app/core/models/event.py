@@ -1,9 +1,13 @@
-from typing import List
+from datetime import datetime
+from typing import TYPE_CHECKING, List
+
+from sqlalchemy import Column, ForeignKey, Table
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from app.core.models.base import Base
 
-from sqlalchemy import ForeignKey, Table, Column
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from datetime import datetime
+if TYPE_CHECKING:
+    from app.core.models.user import User
 
 user_to_event = Table(
     "user_to_event",
@@ -12,12 +16,13 @@ user_to_event = Table(
     Column("user_id", ForeignKey("users.id")),
 )
 
+
 class Event(Base):
     __tablename__ = "events"
 
     creator_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    date: Mapped[datetime] = mapped_column()
-    location: Mapped[str] = mapped_column()
-    format: Mapped[str] = mapped_column()
+    date: Mapped[datetime]
+    location: Mapped[str]
+    format: Mapped[str]
 
-    participants: Mapped[list["User"]] = relationship(secondary=user_to_event)
+    participants: Mapped[List["User"]] = relationship(secondary=user_to_event)

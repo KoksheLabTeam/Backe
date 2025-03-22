@@ -1,10 +1,9 @@
-from typing import List, TYPE_CHECKING
-from app.core.models.base import Base
-from app.core.models.event import Event, user_to_event
+from datetime import datetime
 
-from sqlalchemy import Date
-from sqlalchemy.orm import Mapped, mapped_column, relationship
-from datetime import datetime, date
+from sqlalchemy.orm import Mapped, mapped_column
+
+from app.core.models.base import Base
+
 
 class User(Base):
     __tablename__ = "users"
@@ -13,9 +12,10 @@ class User(Base):
     first_name: Mapped[str]
     last_name: Mapped[str]
 
-    date_of_birth: Mapped[date] = mapped_column(Date)
-    height: Mapped[float]
-    weight: Mapped[float]
+    height: Mapped[str]
+    weight: Mapped[str]
+    dob: Mapped[datetime]
+
     is_admin: Mapped[bool] = mapped_column(default=False)
 
-    events: Mapped[List["Event"]] = relationship(secondary=user_to_event)
+    # events: Mapped[List["Event"]] = relationship(secondary=user_to_event)
