@@ -16,6 +16,4 @@ class User(Base):
     weight: Mapped[str]
     dob: Mapped[datetime]
 
-    is_admin: Mapped[bool] = mapped_column(default=False)
-
     # events: Mapped[List["Event"]] = relationship(secondary=user_to_event)

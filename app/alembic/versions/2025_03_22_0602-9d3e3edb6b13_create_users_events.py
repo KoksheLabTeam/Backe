@@ -1,8 +1,8 @@
 """create_users_events
 
-Revision ID: c0ce8c36c9f9
+Revision ID: 9d3e3edb6b13
 Revises:
-Create Date: 2025-03-22 04:54:10.123660
+Create Date: 2025-03-22 06:02:54.014011
 
 """
 
@@ -11,7 +11,7 @@ from typing import Sequence, Union
 import sqlalchemy as sa
 from alembic import op
 
-revision: str = "c0ce8c36c9f9"
+revision: str = "9d3e3edb6b13"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -27,7 +27,6 @@ def upgrade() -> None:
         sa.Column("height", sa.String(), nullable=False),
         sa.Column("weight", sa.String(), nullable=False),
         sa.Column("dob", sa.DateTime(), nullable=False),
-        sa.Column("is_admin", sa.Boolean(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("telegram_id"),
     )
